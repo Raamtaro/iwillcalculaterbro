@@ -10,9 +10,6 @@ const multiply = function(a, b) {
   return a * b
 }
 
-
-
-
 const divide = function(a, b) {
     return a / b
 }
@@ -20,7 +17,7 @@ const divide = function(a, b) {
 function operate(a, b, operator) {
 //This is going to be VERY rough code for now
     let result = 0;
-
+    
     if (operator === 'addition') result = add(a,b)
     else if (operator === 'subtraction') result = subtract(a,b)
     else if (operator === 'multiplication') result = multiply(a,b)

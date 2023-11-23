@@ -4,3 +4,78 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.calculator {
+    background-color: beige;
+    margin: 40px 74px;
+}
+
+.screen {
+    height: 150px;
+    width: 400px;
+    background-color: rgba(162, 243, 232, 0.699);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.number {
+    height: 75px;
+    width: 75px;
+}
+
+.row, .numberPad {
+    display: flex;
+    gap: 5px;
+}
+
+.numberPad {
+    margin: 15px 0;
+    flex-direction: column;
+}
+
+.sectionTwo {
+    display:flex;
+    gap: 5px;
+    
+    /* flex-direction: column; */
+}
+
+.operators {
+    width: 160px;
+    height: 235px;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: center;
+}
+
+.operator {
+    width: 160px;
+    height: 48.25px;
+}
+
+.sectionThree {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.whoabrobackup {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.clearConsole, .backspace {
+    width: 112.5px;
+    height: 40px;
+}
+
+.compute {
+    flex: 1;
+    height: 40px;
+}
