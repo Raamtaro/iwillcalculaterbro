@@ -3,11 +3,15 @@ body {
     height: 100vh;
     align-items: center;
     justify-content: center;
+    background-color: black;
 }
 
 .calculator {
     background-color: beige;
-    margin: 40px 74px;
+    padding: 40px 64px;
+    border: 4px solid beige;
+    border-radius: 16px;
+
 }
 
 .screen {

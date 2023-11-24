@@ -1,3 +1,7 @@
+const calcScreen = document.querySelector(".screen")
+
+const operatorGroup = document.querySelector(".operators")
+
 const add = function(a, b) {
 	return a + b
 };
@@ -15,7 +19,7 @@ const divide = function(a, b) {
 }
 
 function operate(a, b, operator) {
-//This is going to be VERY rough code for now
+//This is VERY rough code for now
     let result = 0;
     
     if (operator === 'addition') result = add(a,b)
@@ -25,6 +29,34 @@ function operate(a, b, operator) {
 
     return result
 }
+
+//Event Listeners to get the text to appear on the screen
+
+//NumberPad
+for (let i=1; i <= 9; i++) {
+  let numberButton = document.querySelector(".number" + i.toString());
+  numberButton.addEventListener('click', () => {
+    calcScreen.textContent += numberButton.textContent;
+  });
+};
+
+for (let j=0; j < operatorGroup.children.length; j++) {
+  operatorGroup.children[j].addEventListener('click', () => {
+    calcScreen.textContent += operatorGroup.children[j].textContent
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
