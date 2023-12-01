@@ -1,11 +1,9 @@
-const calcScreen = document.querySelector(".screen")
-
-const operatorGroup = document.querySelector(".operators")
-
-const computeButton = document.querySelector(".compute")
-
-let result = 0;
-
+const calcScreen = document.querySelector(".screen");
+const operatorGroup = document.querySelector(".operators");
+const computeButton = document.querySelector(".compute");
+const backspaceButton = document.querySelector(".backspace");
+const allClear = document.querySelector(".clearConsole")
+let storedValue = 0;
 
 
 const add = function(a, b) {
@@ -40,6 +38,22 @@ function operate(a, b, operator) {
     return result
 };
 
+const preOperateLogic = function() {
+  let argArray = calcScreen.textContent.split(/[\+\-\*÷]/);
+  let calcVal = 0;
+
+  let firstNumber = Number(argArray[0]);
+  let secondNumber = Number(argArray[1]);
+
+  if (calcScreen.textContent.includes("+")) {calcVal = operate(firstNumber,secondNumber, "addition")}
+  else if (calcScreen.textContent.includes("-")) {calcVal = operate(firstNumber,secondNumber, "subtraction")}
+  else if (calcScreen.textContent.includes("*")) {calcVal = operate(firstNumber,secondNumber, "multiplication")}
+  else if (calcScreen.textContent.includes("÷")) {calcVal = operate(firstNumber,secondNumber, "division")}
+
+  calcScreen.textContent = calcVal.toString();
+  return calcVal
+}
+
 //Event Listeners to get the text to appear on the screen
 
 //NumberPad
@@ -69,7 +83,15 @@ for (let j=0; j < operatorGroup.children.length; j++) {
 
 
 //Event Listener to make the delete button... delete, lol
-function backspace() {
-  calcScreen.textContent = calcScreen.textContent.substring(0, calcScreen.textContent.length - 1)
-};
+// const backspace = function() {
+//   calcScreen.textContent = calcScreen.textContent.substring(0, calcScreen.textContent.length - 1)
+// };
 
+backspaceButton.addEventListener('click', ()=>{
+  calcScreen.textContent = calcScreen.textContent.substring(0, calcScreen.textContent.length - 1)
+});
+
+
+computeButton.addEventListener('click', () => {
+  storedValue = preOperateLogic()
+})
