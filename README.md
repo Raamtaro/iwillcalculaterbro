@@ -52,3 +52,9 @@ computeButton.addEventListener('click', ()=> {
 
     //if/else if logic calcScreen.textContent.includes() for each of the operators --> store the value and call operate() with the correct args
 })
+
+
+Operators: 
+
+1. Run a check to see if the calcScreen.textContent includes one of the operators
+2. Check to see if the calcScreen.textContent is empty
