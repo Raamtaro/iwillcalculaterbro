@@ -44,29 +44,16 @@ const preOperateLogic = function() {
   let argArray = calcScreen.textContent.split(/[\+\-\*÷]/);
   let firstNumber = 0;
   
-  if (argArray.length > 2) {
-    argArray.shift() //remove any empty space elements in case of a negative number for storedValue
-  };
+  if (argArray.length > 2) {argArray.shift()};
 
-  let secondNumber = Number(argArray[1]); //define the secondNumber AFTER modifying the original array to get rid of any empty spaces caused by a negative first number
+  let secondNumber = Number(argArray[1]); 
   
-  //the following if/else if logic is intended to use argArray to fill the value for the firstNumber for the operate(a,b,operator) logic. Then after
-  // console.log('this code is being run');
-  if (!storedValue) {
-    firstNumber = Number(argArray[0])
-    // console.log('this code is also being run')
-  }
-  else if (storedValue > 0) {
-    firstNumber = storedValue
-    // console.log('this code is also being run')
-  }
-  else if (storedValue < -1) {
-    firstNumber = Number(argArray[0]) * -1
-    // console.log('this code is also being run')
-  }
+  if (!storedValue) {firstNumber = Number(argArray[0])}
+  else if (storedValue > 0) {firstNumber = storedValue}
+  else if (storedValue < -1) {firstNumber = Number(argArray[0]) * -1}
 
   let rawArray = calcScreen.textContent.split('');
-  if (rawArray[0] === '-') rawArray.shift(); //this removes the negative sign from the rawArray from the array entirely, which allows the array to be checked for the proper operator
+  if (rawArray[0] === '-') rawArray.shift(); 
 
 
   if (rawArray.includes("+")) {calcVal = operate(firstNumber, secondNumber, "addition")}
@@ -98,7 +85,17 @@ for (let i=0; i <= 9; i++) {
 //Operators
 for (let j=0; j < operatorGroup.children.length; j++) {
   operatorGroup.children[j].addEventListener('click', () => {
-
+    //First thing to do is to split the calcScreen.textContent by ''
+    let rawArray = calcScreen.textContent.split('');
+    if (rawArray[0] === '-') rawArray.shift();
+    //start the if/else if logic --
+    //1st: check to see if rawArray[rawArray.length - 1] is either +, -, ÷ or *
+    if (rawArray[rawArray.length - 1] === "+" || rawArray[rawArray.length - 1] === "-" || rawArray[rawArray.length - 1] === "*" || rawArray[rawArray.length - 1] === "÷") {
+      //change error to true, and change the textContent to an error message, set storedValue to 0
+      error = true;
+      calcScreen.textContent = "Error, no more than one operator in a row. Please enter a number to start over.";
+      storedValue = 0;
+    }
     
     
     calcScreen.textContent += operatorGroup.children[j].textContent;
