@@ -40,33 +40,41 @@ function operate(a, b, operator) {
 };
 
 const preOperateLogic = function() {
+  let calcVal = 0;
   let argArray = calcScreen.textContent.split(/[\+\-\*÷]/);
   let firstNumber = 0;
+  
   if (argArray.length > 2) {
     argArray.shift() //remove any empty space elements in case of a negative number for storedValue
   };
-  console.log('this code is being run');
+
+  let secondNumber = Number(argArray[1]); //define the secondNumber AFTER modifying the original array to get rid of any empty spaces caused by a negative first number
+  
+  //the following if/else if logic is intended to use argArray to fill the value for the firstNumber for the operate(a,b,operator) logic. Then after
+  // console.log('this code is being run');
   if (!storedValue) {
-    firstNumber += Number(argArray[0])
-    console.log('this code is also being run')
+    firstNumber = Number(argArray[0])
+    // console.log('this code is also being run')
   }
   else if (storedValue > 0) {
-    firstNumber += storedValue
-    console.log('this code is also being run')
+    firstNumber = storedValue
+    // console.log('this code is also being run')
   }
   else if (storedValue < -1) {
-    firstNumber += Number(argArray[0]) * -1
-    console.log('this code is also being run')
+    firstNumber = Number(argArray[0]) * -1
+    // console.log('this code is also being run')
   }
 
-  return firstNumber
+  let rawArray = calcScreen.textContent.split('');
+  if (rawArray[0] === '-') rawArray.shift(); //this removes the negative sign from the rawArray from the array entirely, which allows the array to be checked for the proper operator
 
 
+  if (rawArray.includes("+")) {calcVal = operate(firstNumber, secondNumber, "addition")}
+  else if (rawArray.includes("-")) {calcVal = operate(firstNumber,secondNumber, "subtraction")}
+  else if (rawArray.includes("*")) {calcVal = operate(firstNumber,secondNumber, "multiplication")}
+  else if (rawArray.includes("÷")) {calcVal = operate(firstNumber,secondNumber, "division")}
 
-  // if (calcScreen.textContent.includes("+")) {calcVal = operate(firstNumber,secondNumber, "addition")}
-  // else if (calcScreen.textContent.includes("-")) {calcVal = operate(firstNumber,secondNumber, "subtraction")}
-  // else if (calcScreen.textContent.includes("*")) {calcVal = operate(firstNumber,secondNumber, "multiplication")}
-  // else if (calcScreen.textContent.includes("÷")) {calcVal = operate(firstNumber,secondNumber, "division")}
+  
 
   calcScreen.textContent = calcVal.toString();
   return calcVal
@@ -93,7 +101,7 @@ for (let j=0; j < operatorGroup.children.length; j++) {
 
     
     
-    // calcScreen.textContent += operatorGroup.children[j].textContent;
+    calcScreen.textContent += operatorGroup.children[j].textContent;
   });
 };
 
