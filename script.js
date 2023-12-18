@@ -41,15 +41,32 @@ function operate(a, b, operator) {
 
 const preOperateLogic = function() {
   let argArray = calcScreen.textContent.split(/[\+\-\*÷]/);
-  let calcVal = 0;
+  let firstNumber = 0;
+  if (argArray.length > 2) {
+    argArray.shift() //remove any empty space elements in case of a negative number for storedValue
+  };
+  console.log('this code is being run');
+  if (!storedValue) {
+    firstNumber += Number(argArray[0])
+    console.log('this code is also being run')
+  }
+  else if (storedValue > 0) {
+    firstNumber += storedValue
+    console.log('this code is also being run')
+  }
+  else if (storedValue < -1) {
+    firstNumber += Number(argArray[0]) * -1
+    console.log('this code is also being run')
+  }
 
-  let firstNumber = Number(argArray[0]);
-  let secondNumber = Number(argArray[1]);
+  return firstNumber
 
-  if (calcScreen.textContent.includes("+")) {calcVal = operate(firstNumber,secondNumber, "addition")}
-  else if (calcScreen.textContent.includes("-")) {calcVal = operate(firstNumber,secondNumber, "subtraction")}
-  else if (calcScreen.textContent.includes("*")) {calcVal = operate(firstNumber,secondNumber, "multiplication")}
-  else if (calcScreen.textContent.includes("÷")) {calcVal = operate(firstNumber,secondNumber, "division")}
+
+
+  // if (calcScreen.textContent.includes("+")) {calcVal = operate(firstNumber,secondNumber, "addition")}
+  // else if (calcScreen.textContent.includes("-")) {calcVal = operate(firstNumber,secondNumber, "subtraction")}
+  // else if (calcScreen.textContent.includes("*")) {calcVal = operate(firstNumber,secondNumber, "multiplication")}
+  // else if (calcScreen.textContent.includes("÷")) {calcVal = operate(firstNumber,secondNumber, "division")}
 
   calcScreen.textContent = calcVal.toString();
   return calcVal
@@ -58,7 +75,7 @@ const preOperateLogic = function() {
 //Event Listeners to get the text to appear on the screen
 
 //NumberPad
-for (let i=1; i <= 9; i++) {
+for (let i=0; i <= 9; i++) {
   let numberButton = document.querySelector(".number" + i.toString());
   numberButton.addEventListener('click', () => {
     if (error){
@@ -74,39 +91,7 @@ for (let i=1; i <= 9; i++) {
 for (let j=0; j < operatorGroup.children.length; j++) {
   operatorGroup.children[j].addEventListener('click', () => {
 
-    if (calcScreen.textContent.includes("+") || calcScreen.textContent.includes("-") || calcScreen.textContent.includes("*") || calcScreen.textContent.includes("÷")) {
-      if (calcScreen.textContent.split(/[\+\-\*÷]/).length === 2) {
-        storedValue = preOperateLogic();
-        calcScreen.textContent += operatorGroup.children[j].textContent;
-      }
-      else {
-        error = true;
-        calcScreen.textContent = "No more than one operator pls!";
-        storedValue = 0;
-      }
-    }
-    else if (!calcScreen.textContent) {
-      error = true;
-      calcScreen.textContent = "Can't operate like this!";
-      storedValue = 0;
-    }
-    else if (calcScreen.textContent === "Can't operate like this!" || calcScreen.textContent === "No more than one operator pls!") {
-      error = true;
-      calcScreen.textContent = "Please Enter a number, like a normal person.";
-      storedValue = 0;
-    }
-    else {calcScreen.textContent += operatorGroup.children[j].textContent;}
-   
-
     
-
-    //need to add some logic which checks to see if certain characters already exist/don't exist yet -- so basically... 
-
-    //if two numbers are already set up with an operator in the middle, then compute, replace the first value with the result, and then continue
-    //If there are NO numbers in the first place and I try to jump straight to an operator, then throw em an error!
-    //If I try to enter an operator twice in a row, then throw em an error!
-
-    //else (if the calculator is being used properly), go ahead and append the text to the screen
     
     // calcScreen.textContent += operatorGroup.children[j].textContent;
   });
