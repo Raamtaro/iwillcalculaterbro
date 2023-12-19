@@ -41,11 +41,11 @@ function operate(a, b, operator) {
 
 const preOperateLogic = function() {
   let calcVal = 0;
+
   let argArray = calcScreen.textContent.split(/[\+\-\*÷]/);
-  let firstNumber = 0;
-  
   if (argArray.length > 2) {argArray.shift()};
 
+  let firstNumber = 0;
   let secondNumber = Number(argArray[1]); 
   
   if (!storedValue) {firstNumber = Number(argArray[0])}
@@ -88,17 +88,30 @@ for (let j=0; j < operatorGroup.children.length; j++) {
     //First thing to do is to split the calcScreen.textContent by ''
     let rawArray = calcScreen.textContent.split('');
     if (rawArray[0] === '-') rawArray.shift();
+
+    //Now define argArray
+    let argArray = calcScreen.textContent.split(/[\+\-\*÷]/);
+    if (!argArray[0]) argArray.shift()
+
     //start the if/else if logic --
     //1st: check to see if rawArray[rawArray.length - 1] is either +, -, ÷ or *
     if (rawArray[rawArray.length - 1] === "+" || rawArray[rawArray.length - 1] === "-" || rawArray[rawArray.length - 1] === "*" || rawArray[rawArray.length - 1] === "÷") {
       //change error to true, and change the textContent to an error message, set storedValue to 0
       error = true;
-      calcScreen.textContent = "Error, no more than one operator in a row. Please enter a number to start over.";
+      calcScreen.textContent = "Error, no more than one operator in a row. Please enter a number or press AC";
       storedValue = 0;
     }
-    
-    
-    calcScreen.textContent += operatorGroup.children[j].textContent;
+    //2nd: check if there if the error flag is tripped or if the screenText is empty
+    else if (error || !calcScreen.textContent) {
+      if (!calcScreen.textContent) error = true;
+      calcScreen.textContent = "Error - please enter a number or press AC";
+    }
+    else if (argArray.length === 2) {
+      storedValue = preOperateLogic();
+      calcScreen.textContent += operatorGroup.children[j].textContent;
+      
+    }
+    else calcScreen.textContent += operatorGroup.children[j].textContent;
   });
 };
 
